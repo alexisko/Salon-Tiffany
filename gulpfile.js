@@ -4,6 +4,7 @@ var useref = require('gulp-useref');
 var uglify = require('gulp-uglify');
 var gulpIf = require('gulp-if');
 var cssnano = require('gulp-cssnano');
+var imagemin = require('gulp-imagemin');
 var browserSync = require('browser-sync').create();
 
 gulp.task('browserSync', function() {
@@ -12,6 +13,12 @@ gulp.task('browserSync', function() {
       baseDir: 'app'
     }
   });
+});
+
+gulp.task('images', function() {
+  return gulp.src('app/images/**/*.+(png|jpg|gif|svg)')
+    .pipe(imagemin())
+    .pipe(gulp.dest('dist/images'));
 });
 
 gulp.task('sass', function() {
