@@ -6,6 +6,7 @@ var gulpIf = require('gulp-if');
 var cssnano = require('gulp-cssnano');
 var imagemin = require('gulp-imagemin');
 var cache = require('gulp-cache');
+var del = require('del');
 var browserSync = require('browser-sync').create();
 
 gulp.task('browserSync', function() {
@@ -14,6 +15,10 @@ gulp.task('browserSync', function() {
       baseDir: 'app'
     }
   });
+});
+
+gulp.task('clean:dist', function() {
+  return del.sync('dist');
 });
 
 gulp.task('fonts', function() {
