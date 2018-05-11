@@ -5,6 +5,7 @@ var uglify = require('gulp-uglify');
 var gulpIf = require('gulp-if');
 var cssnano = require('gulp-cssnano');
 var imagemin = require('gulp-imagemin');
+var cache = require('gulp-cache');
 var browserSync = require('browser-sync').create();
 
 gulp.task('browserSync', function() {
@@ -17,7 +18,7 @@ gulp.task('browserSync', function() {
 
 gulp.task('images', function() {
   return gulp.src('app/images/**/*.+(png|jpg|gif|svg)')
-    .pipe(imagemin())
+    .pipe(cache(imagemin()))
     .pipe(gulp.dest('dist/images'));
 });
 
