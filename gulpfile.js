@@ -1,5 +1,8 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
+var useref = require('gulp-useref');
+var uglify = require('gulp-uglify');
+var gulpIf = require('gulp-if');
 var browserSync = require('browser-sync').create();
 
 gulp.task('browserSync', function() {
@@ -17,6 +20,13 @@ gulp.task('sass', function() {
     .pipe(browserSync.reload({
       stream: true
     }));
+});
+
+gulp.task('useref', function() {
+  return gulp.src('app/*.html')
+    .pipe(useref())
+    .pipe(gulpIf('*.js', uglify()))
+    .pipe(gulp.dest('dist'));
 });
 
 gulp.task('watch', ['browserSync', 'sass'], function() {
