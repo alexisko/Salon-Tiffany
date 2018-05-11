@@ -7,6 +7,7 @@ var cssnano = require('gulp-cssnano');
 var imagemin = require('gulp-imagemin');
 var cache = require('gulp-cache');
 var del = require('del');
+var runSequence = require('run-sequence');
 var browserSync = require('browser-sync').create();
 
 gulp.task('browserSync', function() {
@@ -17,8 +18,21 @@ gulp.task('browserSync', function() {
   });
 });
 
+gulp.task('build', function(callback) {
+  runSequence('clean:dist',
+    ['sass', 'useref', 'images', 'fonts'],
+    callback
+  );
+});
+
 gulp.task('clean:dist', function() {
   return del.sync('dist');
+});
+
+gulp.task('default', function(callback) {
+  runSequence(['sass', 'browserSync', 'watch'],
+    callback
+  );
 });
 
 gulp.task('fonts', function() {
